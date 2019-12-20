@@ -31,8 +31,7 @@
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
     @include('user/includes/top')
     <div class="app-body">
-        @include('user/includes/sidebar')
-        <main class="main">
+        <main class="main" style="margin-left: 0px;">
             <ol class="breadcrumb">
                 @if ($pageHeading != 'Dashboard')
                     <li class="breadcrumb-item"><a href="{{ route('user.dashboard') }}">Dashboard</a></li>
@@ -53,7 +52,6 @@
             @yield('content')
         </main>
     </div>
-    @include('user/includes/footer')
     <!-- CoreUI and necessary plugins-->
     <script src="{{ asset ('/coreui/node_modules/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset ('/coreui/node_modules/popper.js/dist/umd/popper.min.js') }}"></script>

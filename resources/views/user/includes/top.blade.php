@@ -2,13 +2,6 @@
     <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" href="{{ route('user.dashboard')}}">
-      <img class="navbar-brand-full" src="{{ asset('/images/brand/logo.png')}}" style="width:150px;" alt="Search Nepal">
-      <img class="navbar-brand-minimized" src="{{ asset('/images/brand/logo1.png')}}" style="width:50px;"  alt="Search Nepal">
-    </a>
-    <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
-      <span class="navbar-toggler-icon"></span>
-    </button>
     <ul class="nav navbar-nav d-md-down-none">
       <li class="nav-item px-3"></li>
     </ul>

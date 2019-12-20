@@ -23,18 +23,11 @@ Route::any('logout', 'Auth\LoginController@logout')->name('logout');
 
 
 Route::get('/dashboard', 'User\DashboardController@index')->name('user.dashboard');
+Route::any('/sets/add/{id}', 'User\DashboardController@addSet')->name('admin.sets.add');
+Route::any('/sets/update/{id}', 'User\DashboardController@updateSet')->name('admin.sets.update');
+Route::any('/sets/question/add/{setId}', 'User\DashboardController@addQuestion')->name('admin.sets.addquestion');
+Route::any('/sets/question/update/{setId}', 'User\DashboardController@updateQuestion')->name('admin.sets.updatequestion');
 
-Route::get('/profile', 'User\ProfileController@index')->name('user.profile.index');
-Route::post('/profile/post', 'User\ProfileController@update')->name('user.profile.update');
 
-Route::any('/details', 'User\AboutController@index')->name('user.about.index');
-Route::any('/details/post', 'User\AboutController@update')->name('user.about.update');
 
-Route::any('/social', 'User\SocialController@index')->name('user.social.index');
-Route::any('/social/post', 'User\SocialController@update')->name('user.social.update');
 
-Route::any('/workinghour', 'User\WorkingHourController@index')->name('user.working_hour.index');
-Route::any('/workinghour/post', 'User\WorkingHourController@update')->name('user.working_hour.update');
-
-Route::any('/gallery', 'User\GalleryController@index')->name('user.gallery.index');
-Route::any('/gallery/post', 'User\GalleryController@update')->name('user.gallery.update');

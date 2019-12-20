@@ -9,12 +9,12 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <a href="" data-toggle="modal" data-id="0" data-backdrop="static" class="btn btn-pill btn-success"><i class="fa fa-plus"></i>&nbsp;Add</a>
+                                    <a href="{{ route('admin.sets.add', [0]) }}" data-toggle="modal" data-id="0" data-backdrop="static" class="btn btn-pill btn-success"><i class="fa fa-plus"></i>&nbsp;Add</a>
                                 </div>
                             </div>
                         </div>
                         <div class="card-body">
-                            @if(count($data) > 0)
+                            @if(count($sets) > 0)
                             <table class="table table-responsive-sm table-hover table-outline mb-0">
                                 <thead class="thead-light">
                                     <tr>
@@ -37,7 +37,9 @@
                                                     @endif
                                             </td>
                                             <td>
-                                                <span class="cursor"> <a href="{{ route('admin.sub_category.add', [$row->id]) }}" title="Edit"  class="btn btn-info btn-circle btn-sm m-r-5"><i class="fa fa-edit"></i></a> </span>
+                                                <span class="cursor"> <a href="{{ route('admin.sets.add', [$row->id]) }}" title="Edit"  class="btn btn-info btn-circle btn-sm m-r-5"><i class="fa fa-edit"></i></a> </span>
+                                                <span class="cursor"> <a href="{{ route('admin.sets.addquestion', [$row->id]) }}" title="Add Question"  class="btn btn-info btn-circle btn-sm m-r-5"><i class="fa fa-edit"></i></a> </span>
+                                                <span class="cursor"> <a href="{{ route('admin.sets.add', [$row->id]) }}" title="Edit"  class="btn btn-info btn-circle btn-sm m-r-5"><i class="fa fa-edit"></i></a> </span>
                                             </td>
                                         </tr>
                                     @endforeach
