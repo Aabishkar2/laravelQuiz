@@ -40,6 +40,12 @@ class DashboardController extends Controller
         $data['pageHeading'] = 'Add Question';
         $data['title'] = 'Add Question';
         $data['post_url'] =  route('admin.sets.updatequestion', ['setId' => $request->setId]);
+        $questions = DB::table('questions')->where('set_id', $request->setId)->get();
+        if(count($questions) > 0) {
+            $data['data_value'] = $questions;
+        } else {
+            $data['data_value'] = range(1,20);
+        }
         return view('user.pages.set.question', $data);
     }
 
@@ -64,7 +70,7 @@ class DashboardController extends Controller
                         'option_2' => $request->option2[$key],
                         'option_3' => $request->option3[$key],
                         'option_4' => $request->option4[$key],
-                        'answer' => $request->answer.$request->question_no[$key],
+                        'answer' => $request->answer[$key],
                         'created_at' =>date('Y-m-d H:i:s')
                     ]);
                 }

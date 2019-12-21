@@ -28,14 +28,14 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                @for ($i = 1; $i < 3; $i++)
-                                    <input type="hidden" name="question_no[]" value="{{ $i }}">                
+                                @foreach($data_value as $row)
+                                    <input type="hidden" name="question_no[]" value="<?php if(@$row->question_no) { echo !$row->question_no;} else { echo $row; } ?>">
                                     <div class="question">
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="form-group">
-                                                    <label for="ccnumber">Question {{ $i }}</label>
-                                                    <input class="form-control" name="question[]" maxlength="50" type="text" value="{{ @$data_value->name }}" required>
+                                                    <label for="ccnumber">Question <?php if(@$row->question_no) { echo @$row->question_no;} else { echo $row; } ?></label>
+                                                    <input class="form-control" name="question[]" maxlength="50" type="text" value="{{ @$row->question }}" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -48,7 +48,7 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text" id="basic-addon1"> 1 </span>
                                                         </div>
-                                                        <input class="form-control" name="option1[]" maxlength="50" type="text" value="" required>
+                                                        <input class="form-control" name="option1[]" maxlength="50" type="text" value="{{ @$row->option_1 }}" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -59,7 +59,7 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text" id="basic-addon1"> 2 </span>
                                                         </div>
-                                                        <input class="form-control" name="option2[]" maxlength="50" type="text" value="" required>
+                                                        <input class="form-control" name="option2[]" maxlength="50" type="text" value="{{ @$row->option_2 }}" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -70,7 +70,7 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text" id="basic-addon1"> 3 </span>
                                                         </div>
-                                                        <input class="form-control" name="option3[]" maxlength="50" type="text" value="" required>
+                                                        <input class="form-control" name="option3[]" maxlength="50" type="text" value="{{ @$row->option_3 }}" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -81,7 +81,7 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text" id="basic-addon1"> 4 </span>
                                                         </div>
-                                                        <input class="form-control" name="option4[]" maxlength="50" type="text" value="" required>
+                                                        <input class="form-control" name="option4[]" maxlength="50" type="text" value="{{ @$row->option_4 }}" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -90,17 +90,16 @@
                                         <!-- answer radio button -->
                                         <div class="row">
                                             <div class="col-sm-6">
-                                                <?php $name = "answer".$i; ?>
-                                                <input type="radio" class="" name="{{ $name }}" value="1" required> 1 &nbsp &nbsp &nbsp &nbsp &nbsp
-                                                <input type="radio" class="" name="{{ $name }}" value="2" required> 2 &nbsp &nbsp &nbsp &nbsp &nbsp
-                                                <input type="radio" class="" name="{{ $name }}" value="3" required> 3 &nbsp &nbsp &nbsp &nbsp &nbsp
-                                                <input type="radio" class="" name="{{ $name }}" value="4" required> 4 &nbsp &nbsp &nbsp &nbsp &nbsp
+                                                <?php $name = "answer[]"; ?>
+                                                <input type="checkbox" class="" name="{{ $name }}" value="1" <?php if(@$row->answer == "1") { echo "checked"; } ?> required> 1 &nbsp &nbsp &nbsp &nbsp &nbsp
+                                                <input type="checkbox" class="" name="{{ $name }}" value="2" <?php if(@$row->answer == "2") { echo "checked"; } ?> required> 2 &nbsp &nbsp &nbsp &nbsp &nbsp
+                                                <input type="checkbox" class="" name="{{ $name }}" value="3" <?php if(@$row->answer == "3") { echo "checked"; } ?> required> 3 &nbsp &nbsp &nbsp &nbsp &nbsp
+                                                <input type="checkbox" class="" name="{{ $name }}" value="4" <?php if(@$row->answer == "4") { echo "checked"; } ?> required> 4 &nbsp &nbsp &nbsp &nbsp &nbsp
                                             </div>
-                                            
                                         </div>
                                     </div>
                                     <hr />
-                                @endfor
+                                @endforeach
                             </div>
                         </div>
                     </div>  
