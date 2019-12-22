@@ -4,6 +4,9 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Users\Set;
+use App\Models\Users\Token;
+use App\Models\Users\Submission;
+use Carbon\Carbon;
 use DB;
 
 class DashboardController extends Controller
@@ -78,6 +81,52 @@ class DashboardController extends Controller
         }
         
         return redirect(route('user.dashboard'));
+
+    }
+
+    public function testSet(Request $request) {
+        $set = $request->setId;
+        $qno = $request->qno;
+        $data['question'] = DB::table('questions')->where('set_id',$set)->where('question_no', $qno)->first();
+        return view('user.pages.studentquestion', $data);
+    }
+
+    public function generateToken(Request $request) {
+        $set = $request->setId;
+        $token = new Token;
+        $token->token = str_random(32);
+        $token->set_id = $set;
+        $current = Carbon::now();
+        $token->expiry = $current->addHours()->addMinutes();
+        $token->save();
+    }
+
+    public function submission(Request $request) {
+        if($request->userid) {
+            session(['userid' => $request->userid]);
+        }
+        $question_no = $request->question_no;
+        $set_id = $request->set_id;
+        $submission = new Submission;
+        $submission->userid = session('userid');;
+        $submission->set_id = $set_id;
+        $submission->question_no = $question_no;
+        $submission->submitted_option = $request->option;
+
+        $questionDetail = DB::table('questions')->where('set_id', $set_id)->where('question_no', $question_no)->first();
+        $isCorrectValidator = $questionDetail->answer == $request->option ? 1 : 0;
+        $submission->is_correct = $isCorrectValidator;
+        $submission->save();
+
+        $total_questions = DB::table('questions')->where('set_id',$set_id)->count('question_no');
+        if($total_questions == $question_no) {
+            $data['total_correct_answer'] = DB::table('submissions')->where('userid',session('userid'))->where('is_correct','1')->count('is_correct');
+            return view('user.pages.studentsubmission', $data);
+        } else {
+            $next_question = $question_no + 1;
+            $redirect = '/test/'.$set_id.'/'.$next_question;
+            return redirect($redirect);
+        }     
 
     }
 }

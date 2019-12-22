@@ -35,7 +35,7 @@
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label for="ccnumber">Question <?php if(@$row->question_no) { echo @$row->question_no;} else { echo $row; } ?></label>
-                                                    <input class="form-control" name="question[]" maxlength="50" type="text" value="{{ @$row->question }}" required>
+                                                    <input class="form-control" name="question[]" maxlength="50" type="text" value="{{ @$row->question }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -48,7 +48,7 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text" id="basic-addon1"> 1 </span>
                                                         </div>
-                                                        <input class="form-control" name="option1[]" maxlength="50" type="text" value="{{ @$row->option_1 }}" required>
+                                                        <input class="form-control" name="option1[]" maxlength="50" type="text" value="{{ @$row->option_1 }}" >
                                                     </div>
                                                 </div>
                                             </div>
@@ -59,7 +59,7 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text" id="basic-addon1"> 2 </span>
                                                         </div>
-                                                        <input class="form-control" name="option2[]" maxlength="50" type="text" value="{{ @$row->option_2 }}" required>
+                                                        <input class="form-control" name="option2[]" maxlength="50" type="text" value="{{ @$row->option_2 }}" >
                                                     </div>
                                                 </div>
                                             </div>
@@ -70,7 +70,7 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text" id="basic-addon1"> 3 </span>
                                                         </div>
-                                                        <input class="form-control" name="option3[]" maxlength="50" type="text" value="{{ @$row->option_3 }}" required>
+                                                        <input class="form-control" name="option3[]" maxlength="50" type="text" value="{{ @$row->option_3 }}" >
                                                     </div>
                                                 </div>
                                             </div>
@@ -81,7 +81,7 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text" id="basic-addon1"> 4 </span>
                                                         </div>
-                                                        <input class="form-control" name="option4[]" maxlength="50" type="text" value="{{ @$row->option_4 }}" required>
+                                                        <input class="form-control" name="option4[]" maxlength="50" type="text" value="{{ @$row->option_4 }}" >
                                                     </div>
                                                 </div>
                                             </div>
@@ -91,10 +91,10 @@
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <?php $name = "answer[]"; ?>
-                                                <input type="checkbox" class="" name="{{ $name }}" value="1" <?php if(@$row->answer == "1") { echo "checked"; } ?> required> 1 &nbsp &nbsp &nbsp &nbsp &nbsp
-                                                <input type="checkbox" class="" name="{{ $name }}" value="2" <?php if(@$row->answer == "2") { echo "checked"; } ?> required> 2 &nbsp &nbsp &nbsp &nbsp &nbsp
-                                                <input type="checkbox" class="" name="{{ $name }}" value="3" <?php if(@$row->answer == "3") { echo "checked"; } ?> required> 3 &nbsp &nbsp &nbsp &nbsp &nbsp
-                                                <input type="checkbox" class="" name="{{ $name }}" value="4" <?php if(@$row->answer == "4") { echo "checked"; } ?> required> 4 &nbsp &nbsp &nbsp &nbsp &nbsp
+                                                <input type="checkbox" class="" name="{{ $name }}" value="1" <?php if(@$row->answer == "1") { echo "checked"; } ?> > 1 &nbsp &nbsp &nbsp &nbsp &nbsp
+                                                <input type="checkbox" class="" name="{{ $name }}" value="2" <?php if(@$row->answer == "2") { echo "checked"; } ?> > 2 &nbsp &nbsp &nbsp &nbsp &nbsp
+                                                <input type="checkbox" class="" name="{{ $name }}" value="3" <?php if(@$row->answer == "3") { echo "checked"; } ?> > 3 &nbsp &nbsp &nbsp &nbsp &nbsp
+                                                <input type="checkbox" class="" name="{{ $name }}" value="4" <?php if(@$row->answer == "4") { echo "checked"; } ?> > 4 &nbsp &nbsp &nbsp &nbsp &nbsp
                                             </div>
                                         </div>
                                     </div>
