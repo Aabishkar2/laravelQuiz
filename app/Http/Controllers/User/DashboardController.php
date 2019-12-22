@@ -34,6 +34,9 @@ class DashboardController extends Controller
     public function updateSet(Request $request, $id=0) {
         $set = ($id == 0) ? new Set : Set::find($id);
         $set->name = $request->name;
+        $set->total_question = $request->total_question;
+        $set->hour = $request->hour;
+        $set->minute = $request->minute;
         $set->status = $request->status;
         $set->save();
         return redirect(route('user.dashboard'));
@@ -85,20 +88,32 @@ class DashboardController extends Controller
     }
 
     public function testSet(Request $request) {
+        $token = $request->token;
         $set = $request->setId;
         $qno = $request->qno;
+        $tokenDetail = DB::table('tokens')->where('token',$token)->first();
+        $current_time = Carbon::now();
+        if($current_time > $tokenDetail->expiry) {
+            abort('404');
+        }
         $data['question'] = DB::table('questions')->where('set_id',$set)->where('question_no', $qno)->first();
+        $data['token'] = $token;
         return view('user.pages.studentquestion', $data);
     }
 
     public function generateToken(Request $request) {
         $set = $request->setId;
+        $setDetail = Set::find($set);
         $token = new Token;
-        $token->token = str_random(32);
+        $token->token = str_random(16);
         $token->set_id = $set;
         $current = Carbon::now();
-        $token->expiry = $current->addHours()->addMinutes();
-        $token->save();
+        $token->expiry = $current->addHours($setDetail->hour)->addMinutes($setDetail->minute);
+        if($token->save()) {
+            $url = url('');
+            $data['url'] = $url.'/test/'.$token->token.'/'.$set.'/1';
+            return view('user.pages.tokenurl', $data);
+        }
     }
 
     public function submission(Request $request) {
@@ -107,6 +122,7 @@ class DashboardController extends Controller
         }
         $question_no = $request->question_no;
         $set_id = $request->set_id;
+        $token = $request->token;
         $submission = new Submission;
         $submission->userid = session('userid');;
         $submission->set_id = $set_id;
@@ -124,7 +140,7 @@ class DashboardController extends Controller
             return view('user.pages.studentsubmission', $data);
         } else {
             $next_question = $question_no + 1;
-            $redirect = '/test/'.$set_id.'/'.$next_question;
+            $redirect = '/test/'.$token.'/'.$set_id.'/'.$next_question;
             return redirect($redirect);
         }     
 

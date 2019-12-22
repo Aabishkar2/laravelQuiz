@@ -39,7 +39,7 @@
                                             <td>
                                                 <span class="cursor"> <a href="{{ route('admin.sets.add', [$row->id]) }}" title="Edit"  class="btn btn-info btn-circle btn-sm m-r-5"><i class="fa fa-edit"></i></a> </span>
                                                 <span class="cursor"> <a href="{{ route('admin.sets.addquestion', [$row->id]) }}" title="Add Question"  class="btn btn-info btn-circle btn-sm m-r-5"><i class="fa fa-edit"></i></a> </span>
-                                                <span class="cursor"> <a href="{{ route('admin.sets.add', [$row->id]) }}" title="Edit"  class="btn btn-info btn-circle btn-sm m-r-5"><i class="fa fa-edit"></i></a> </span>
+                                                <span class="cursor"> <a href="{{ route('user.sets.generatetoken', [$row->id]) }}" title="Generate URL"  class="btn btn-info btn-circle btn-sm m-r-5"><i class="fa fa-edit"></i></a> </span>
                                             </td>
                                         </tr>
                                     @endforeach

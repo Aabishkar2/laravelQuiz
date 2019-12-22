@@ -28,8 +28,10 @@ Route::any('/sets/update/{id}', 'User\DashboardController@updateSet')->name('adm
 Route::any('/sets/question/add/{setId}', 'User\DashboardController@addQuestion')->name('admin.sets.addquestion');
 Route::any('/sets/question/update/{setId}', 'User\DashboardController@updateQuestion')->name('admin.sets.updatequestion');
 
-Route::any('/test/{setId}/{qno}', 'User\DashboardController@testSet')->name('user.testset');
-Route::any('/test/submission', 'User\DashboardController@submission')->name('user.test.submission');
+Route::any('/test/{token}/{setId}/{qno}', 'User\DashboardController@testSet')->name('user.testset');
+Route::any('/test/submission/{token}', 'User\DashboardController@submission')->name('user.test.submission');
+
+Route::any('/sets/generatetoken/{setId}', 'User\DashboardController@generateToken')->name('user.sets.generatetoken');
 
 
 

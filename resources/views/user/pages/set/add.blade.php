@@ -38,6 +38,38 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="ccnumber">Total Question</label>
+                                            <input class="form-control" name="total_question" maxlength="50" type="number" value="{{ @$data_value->total_question }}" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="ccnumber">Hour</label>
+                                            <select class="form-control" name="hour" required>
+                                                @for($i=0; $i<=24; $i++)
+                                                    <option value="{{ $i }}" @if(@$data_value->hour == $i) selected @endif>{{ $i }}</option>
+                                                @endfor
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="ccnumber">Minute</label>
+                                           <select class="form-control" name="minute" required>
+                                                @for($i=0; $i<=60; $i++)
+                                                    <option value="{{ $i }}" @if(@$data_value->minute == $i) selected @endif>{{ $i }}</option>
+                                                @endfor
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label for="ccnumber">Status</label>
                                                 <select class="form-control" name="status" required>

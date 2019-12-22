@@ -4,7 +4,7 @@ namespace App\Models\Users;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Submission extends Model
+class Token extends Model
 {
    protected $table = 'tokens';
    public $timestamps = true;

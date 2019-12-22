@@ -8,7 +8,7 @@
 <body class="bg-secondary">
 	<div class="container">
 		<div class="mainbox bg-light border border-dark shadow">
-			<form class="form" action="{{ route('user.test.submission') }}">
+			<form class="form" action="{{ route('user.test.submission', [$token]) }}">
 				@if ($question->question_no === 1)
 					<div class="information">
 						<div class="row">
