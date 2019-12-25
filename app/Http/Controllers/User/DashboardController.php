@@ -97,6 +97,8 @@ class DashboardController extends Controller
             abort('404');
         }
         $data['question'] = DB::table('questions')->where('set_id',$set)->where('question_no', $qno)->first();
+        $data['set'] = DB::table('sets')->where('id',$set)->first();
+        $data['count'] = session('count') ? session('count') : 0;
         $data['token'] = $token;
         return view('user.pages.studentquestion', $data);
     }
@@ -108,7 +110,7 @@ class DashboardController extends Controller
         $token->token = str_random(16);
         $token->set_id = $set;
         $current = Carbon::now();
-        $token->expiry = $current->addHours($setDetail->hour)->addMinutes($setDetail->minute);
+        $token->expiry = $current->addHours('24');
         if($token->save()) {
             $url = url('');
             $data['url'] = $url.'/test/'.$token->token.'/'.$set.'/1';
@@ -124,7 +126,7 @@ class DashboardController extends Controller
         $set_id = $request->set_id;
         $token = $request->token;
         $submission = new Submission;
-        $submission->userid = session('userid');;
+        $submission->userid = session('userid');
         $submission->set_id = $set_id;
         $submission->question_no = $question_no;
         $submission->submitted_option = $request->option;
@@ -137,6 +139,7 @@ class DashboardController extends Controller
         $total_questions = DB::table('questions')->where('set_id',$set_id)->count('question_no');
         if($total_questions == $question_no) {
             $data['total_correct_answer'] = DB::table('submissions')->where('userid',session('userid'))->where('is_correct','1')->count('is_correct');
+            Session::forget('count');
             return view('user.pages.studentsubmission', $data);
         } else {
             $next_question = $question_no + 1;
@@ -144,5 +147,10 @@ class DashboardController extends Controller
             return redirect($redirect);
         }     
 
+    }
+
+    public function counter(Request $request) { 
+        $count = $request->count;
+        session(['count' => $count]);
     }
 }

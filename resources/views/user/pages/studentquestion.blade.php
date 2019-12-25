@@ -8,7 +8,7 @@
 <body class="bg-secondary">
 	<div class="container">
 		<div class="mainbox bg-light border border-dark shadow">
-			<form class="form" action="{{ route('user.test.submission', [$token]) }}">
+			<form class="form" id="question" action="{{ route('user.test.submission', [$token]) }}">
 				@if ($question->question_no === 1)
 					<div class="information">
 						<div class="row">
@@ -55,7 +55,9 @@
 				</div>
 				<hr>
 				<div class="next-pagination">
-					<button type="submit" class="btn btn-primary">Next</button>
+					<button type="button" onclick="saveTimer()" class="btn btn-primary">Next</button>
+				</div>
+				<div id="timer">
 				</div>
 			</form>
 		</div>
@@ -82,7 +84,59 @@
   }, false);
 })();
 </script>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script>
+	if({{ $count }} <= 0) {
+		var count = 0;
+		var hour = {{ $set->hour }};
+		var minute = {{ $set->minute }};
+		if(hour > 0) {
+			var count = count + hour * 3600;
+		}
+		if(minute > 0) {
+			count = count + minute*60;
+		}
+	} else {
+		var count = {{ $count }};
+	}
+	console.log(count);
+
+	var counter = setInterval(timer, 1000); //1000 will  run it every 1 second
+
+	function timer() {
+	    this.count = count - 1;
+	    if (count == -1) {
+	        clearInterval(counter);
+	        return;
+	    }
+
+	    var seconds = count % 60;
+	    var minutes = Math.floor(count / 60);
+	    var hours = Math.floor(minutes / 60);
+	    minutes %= 60;
+	    hours %= 60;
+		
+	    document.getElementById("timer").innerHTML = hours + " hours " + minutes + " minutes and " + seconds + " seconds left"; // watch for spelling
+	}
+
+
+
+	function saveTimer() {
+		console.log(this.count);
+		$.ajax({
+            type: 'POST',
+            url: '{{ route("user.sets.counter") }}',
+            data: { count: this.count, _token: '{{csrf_token()}}'},
+            success: function() { 
+			  console.log('success!');
+			},
+			error: function(error) {
+			  console.log(error);
+			}
+        });
+        document.getElementById('question').submit();
+	}
+</script>
 </html>

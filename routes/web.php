@@ -33,6 +33,8 @@ Route::any('/test/submission/{token}', 'User\DashboardController@submission')->n
 
 Route::any('/sets/generatetoken/{setId}', 'User\DashboardController@generateToken')->name('user.sets.generatetoken');
 
+Route::any('/sets/saveCount', 'User\DashboardController@counter')->name('user.sets.counter');
+
 
 
 
